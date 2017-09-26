@@ -4,17 +4,10 @@ public class MenuModel extends BaseModel{
 
     private String menu_name;
 
+    public MenuModel() {
+    }
+
     public MenuModel(String menu_name) {
-        this.menu_name = menu_name;
-    }
-
-    public MenuModel(String _id, String menu_name) {
-        super(_id);
-        this.menu_name = menu_name;
-    }
-
-    public MenuModel(String _id, String _rev, String menu_name) {
-        super(_id, _rev);
         this.menu_name = menu_name;
     }
 
@@ -47,7 +40,9 @@ public class MenuModel extends BaseModel{
     @Override
     public String toString() {
         return "MenuModel{" +
-                "menu_name='" + menu_name + '\'' +
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", menu_name='" + menu_name + '\'' +
                 '}';
     }
 }

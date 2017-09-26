@@ -6,21 +6,10 @@ public class ClientModel extends BaseModel {
     private Double client_cash;
     private Boolean paid;
 
+    public ClientModel() {
+    }
+
     public ClientModel(String client_name, Double client_cash, Boolean paid) {
-        this.client_name = client_name;
-        this.client_cash = client_cash;
-        this.paid = paid;
-    }
-
-    public ClientModel(String _id, String client_name, Double client_cash, Boolean paid) {
-        super(_id);
-        this.client_name = client_name;
-        this.client_cash = client_cash;
-        this.paid = paid;
-    }
-
-    public ClientModel(String _id, String _rev, String client_name, Double client_cash, Boolean paid) {
-        super(_id, _rev);
         this.client_name = client_name;
         this.client_cash = client_cash;
         this.paid = paid;
@@ -75,7 +64,9 @@ public class ClientModel extends BaseModel {
     @Override
     public String toString() {
         return "ClientModel{" +
-                "client_name='" + client_name + '\'' +
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", client_name='" + client_name + '\'' +
                 ", client_cash=" + client_cash +
                 ", paid=" + paid +
                 '}';

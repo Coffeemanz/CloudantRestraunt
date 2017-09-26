@@ -5,17 +5,10 @@ public class WaiterModel extends BaseModel {
     private String waiter_name;
 
     public WaiterModel()
-    {
-        super();
-    }
+    { }
 
-    public WaiterModel(String _id, String waiter_name) {
-        super(_id);
-        this.waiter_name = waiter_name;
-    }
+    public WaiterModel(String waiter_name) {
 
-    public WaiterModel(String _id, String _rev, String waiter_name) {
-        super(_id, _rev);
         this.waiter_name = waiter_name;
     }
 
@@ -48,7 +41,9 @@ public class WaiterModel extends BaseModel {
     @Override
     public String toString() {
         return "WaiterModel{" +
-                "waiter_name='" + waiter_name + '\'' +
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", waiter_name='" + waiter_name + '\'' +
                 '}';
     }
 }

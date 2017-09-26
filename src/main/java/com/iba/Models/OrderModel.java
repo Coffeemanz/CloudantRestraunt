@@ -8,21 +8,11 @@ public class OrderModel extends BaseModel {
     private String client_id;
     private ArrayList<String> food_idS;
 
+    public OrderModel() {
+    }
+
+
     public OrderModel(String waiter_id, String client_id, ArrayList<String> food_idS) {
-        this.waiter_id = waiter_id;
-        this.client_id = client_id;
-        this.food_idS = food_idS;
-    }
-
-    public OrderModel(String _id, String waiter_id, String client_id, ArrayList<String> food_idS) {
-        super(_id);
-        this.waiter_id = waiter_id;
-        this.client_id = client_id;
-        this.food_idS = food_idS;
-    }
-
-    public OrderModel(String _id, String _rev, String waiter_id, String client_id, ArrayList<String> food_idS) {
-        super(_id, _rev);
         this.waiter_id = waiter_id;
         this.client_id = client_id;
         this.food_idS = food_idS;
@@ -77,7 +67,9 @@ public class OrderModel extends BaseModel {
     @Override
     public String toString() {
         return "OrderModel{" +
-                "waiter_id='" + waiter_id + '\'' +
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", waiter_id='" + waiter_id + '\'' +
                 ", client_id='" + client_id + '\'' +
                 ", food_idS=" + food_idS +
                 '}';

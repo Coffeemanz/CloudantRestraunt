@@ -9,21 +9,10 @@ public class BillModel extends  BaseModel {
     private Double total_price;
     private Date date;
 
+    public BillModel() {
+    }
+
     public BillModel(ArrayList<String> order_idS, Double total_price, Date date) {
-        this.order_idS = order_idS;
-        this.total_price = total_price;
-        this.date = date;
-    }
-
-    public BillModel(String _id, ArrayList<String> order_idS, Double total_price, Date date) {
-        super(_id);
-        this.order_idS = order_idS;
-        this.total_price = total_price;
-        this.date = date;
-    }
-
-    public BillModel(String _id, String _rev, ArrayList<String> order_idS, Double total_price, Date date) {
-        super(_id, _rev);
         this.order_idS = order_idS;
         this.total_price = total_price;
         this.date = date;
@@ -78,8 +67,10 @@ public class BillModel extends  BaseModel {
 
     @Override
     public String toString() {
-        return "BillModel{" +
-                "order_idS=" + order_idS +
+        return "BillModel{"+
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", order_idS=" + order_idS +
                 ", total_price=" + total_price +
                 ", date=" + date +
                 '}';

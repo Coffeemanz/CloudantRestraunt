@@ -7,18 +7,14 @@ public class FoodModel extends BaseModel {
     private Double foood_price;
     private String menu_id;
 
-    public FoodModel(String food_name) {
-        this.food_name = food_name;
+    public FoodModel() {
     }
 
-    public FoodModel(String _id, String food_name) {
-        super(_id);
+    public FoodModel(String food_name, String food_desc, Double foood_price, String menu_id) {
         this.food_name = food_name;
-    }
-
-    public FoodModel(String _id, String _rev, String food_name) {
-        super(_id, _rev);
-        this.food_name = food_name;
+        this.food_desc = food_desc;
+        this.foood_price = foood_price;
+        this.menu_id = menu_id;
     }
 
     public String getFood_name() {
@@ -81,7 +77,9 @@ public class FoodModel extends BaseModel {
     @Override
     public String toString() {
         return "FoodModel{" +
-                "food_name='" + food_name + '\'' +
+                "_id="+ get_id() +
+                ", _rev=" + get_rev() +
+                ", food_name='" + food_name + '\'' +
                 ", food_desc='" + food_desc + '\'' +
                 ", foood_price=" + foood_price +
                 ", menu_id='" + menu_id + '\'' +
