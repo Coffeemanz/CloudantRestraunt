@@ -31,8 +31,9 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
 
 
     @Override
-    public Boolean save(T model) {
-        return (database.save(model).getError() == null);
+    public String save(T model)
+    {
+        return (database.save(model).getId());
     }
 
     @Override

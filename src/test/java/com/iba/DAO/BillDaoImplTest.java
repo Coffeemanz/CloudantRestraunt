@@ -46,8 +46,10 @@ public class BillDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = billDao.save(billActual);
-        Assert.assertTrue("billSave() failed", saved);
+        String id = billDao.save(billActual);
+        billExpected = billDao.getById(id);
+        billActual = billDao.getById(id);
+        Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
     @Test

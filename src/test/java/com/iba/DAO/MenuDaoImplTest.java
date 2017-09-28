@@ -46,8 +46,10 @@ public class MenuDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = MenuDao.save(MenuActual);
-        Assert.assertTrue("MenuSave() failed", saved);
+        String id = MenuDao.save(MenuActual);
+        MenuExpected = MenuDao.getById(id);
+        MenuActual = MenuDao.getById(id);
+        Assert.assertEquals("MenuSave() failed", MenuActual, MenuExpected);
     }
 
     @Test

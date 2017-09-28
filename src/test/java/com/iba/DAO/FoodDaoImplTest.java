@@ -45,8 +45,10 @@ public class FoodDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = foodDao.save(foodActual);
-        Assert.assertTrue("foodSave() failed", saved);
+        String id = foodDao.save(foodActual);
+        foodExpected = foodDao.getById(id);
+        foodActual = foodDao.getById(id);
+        Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
     @Test

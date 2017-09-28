@@ -45,8 +45,10 @@ public class WaiterDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = WaiterDao.save(WaiterActual);
-        Assert.assertTrue("WaiterSave() failed", saved);
+        String id = WaiterDao.save(WaiterActual);
+        WaiterExpected = WaiterDao.getById(id);
+        WaiterActual = WaiterDao.getById(id);
+        Assert.assertEquals("WaiterSave() failed", WaiterActual, WaiterExpected);
     }
 
     @Test

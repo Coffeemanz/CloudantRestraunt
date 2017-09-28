@@ -45,8 +45,10 @@ public class ClientDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = clientDao.save(clientActual);
-        Assert.assertTrue("clientSave() failed", saved);
+        String id = clientDao.save(clientActual);
+        clientExpected = clientDao.getById(id);
+        clientActual = clientDao.getById(id);
+        Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
     @Test

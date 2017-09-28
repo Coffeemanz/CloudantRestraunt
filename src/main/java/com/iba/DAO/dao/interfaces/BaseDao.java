@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BaseDao<T> {
 
-    Boolean save(T model);
+    String save(T model);
 
     List<T> getAll();
 

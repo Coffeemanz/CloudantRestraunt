@@ -45,8 +45,10 @@ public class OrderDaoImplTest {
     @Test
     public void testSave()
     {
-        Boolean saved = OrderDao.save(OrderActual);
-        Assert.assertTrue("OrderSave() failed", saved);
+        String id = OrderDao.save(OrderActual);
+        OrderExpected = OrderDao.getById(id);
+        OrderActual = OrderDao.getById(id);
+        Assert.assertEquals("OrderSave() failed", OrderActual, OrderExpected);
     }
 
     @Test
