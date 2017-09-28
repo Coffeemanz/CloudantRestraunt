@@ -20,6 +20,7 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
 
     private Class<T> persistentClass;
 
+
     protected Database database;
 
     public AbstractDao(Database database, Class<T> persistentClass)
