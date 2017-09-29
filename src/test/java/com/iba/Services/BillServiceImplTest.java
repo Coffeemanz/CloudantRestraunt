@@ -1,9 +1,9 @@
-package com.iba.DAO;
+package com.iba.Services;
 
 
-import com.iba.DAO.dao.implementations.BillDaoImpl;
-import com.iba.DAO.dao.interfaces.BillDao;
 import com.iba.Models.BillModel;
+import com.iba.Services.implementations.BillServiceImpl;
+import com.iba.Services.interfaces.BillService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,10 +20,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class BillDaoImplTest {
+public class BillServiceImplTest {
 
     @Autowired
-    private BillDaoImpl billDao;
+    private BillServiceImpl billService;
 
     private BillModel billActual;
     private BillModel billExpected;
@@ -42,39 +42,38 @@ public class BillDaoImplTest {
         billExpected = null;
     }
 
-
     @Test
-    public void testSave()
+    public void save()
     {
-        String id = billDao.save(billActual);
-        billExpected = billDao.getById(id);
-        billActual = billDao.getById(id);
+        String id = billService.save(billActual);
+        billExpected = billService.getbyId(id);
+        billActual = billService.getbyId(id);
         Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
     @Test
-    public void testGetAll()
+    public void getAll()
     {
-        List<BillModel> allDocs = billDao.getAll();
+        List<BillModel> allDocs = billService.getAll();
         Assert.assertTrue("billGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
-    public void testGetById()
+    public void getById()
     {
-        List<BillModel> allDocs = billDao.getAll();
+        List<BillModel> allDocs = billService.getAll();
         billActual = allDocs.get(0);
-        billExpected = billDao.getById(billActual.get_id());
+        billExpected = billService.getbyId(billActual.get_id());
         Assert.assertEquals("billGetById() failed", billActual, billExpected);
     }
 
     @Test
-    public void testUpdate()
+    public void update()
     {
-        billActual = billDao.getById("test_update");
+        billActual = billService.getbyId("test_update");
         billActual.setTotal_price(1234567.0);
-        billDao.update(billActual);
-        billExpected = billDao.getById("test_update");
+        billService.update(billActual);
+        billExpected = billService.getbyId("test_update");
 
         Assert.assertEquals("billUpdate() failed", billActual.getTotal_price(), billExpected.getTotal_price());
     }
@@ -82,7 +81,7 @@ public class BillDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<BillModel> allDocs = billDao.getAll();
+        List<BillModel> allDocs = billService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (BillModel model: allDocs)
@@ -92,25 +91,22 @@ public class BillDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            billActual = billDao.getById("test_delete");
-            billDao.delete(billActual);
+            billActual = billService.getbyId("test_delete");
+            billService.delete(billActual);
         }
         else
         {
             billActual.set_id("test_delete");
-            billDao.save(billActual);
+            billService.save(billActual);
         }
 
         Boolean deleted;
 
-        List<BillModel> allDocsAfterDelete = billDao.getAll();
+        List<BillModel> allDocsAfterDelete = billService.getAll();
 
         if (!allDocsAfterDelete.contains(billActual)) deleted = true;
         else deleted = false;
 
         Assert.assertTrue("billDelete() failed", deleted);
     }
-
-
-
 }

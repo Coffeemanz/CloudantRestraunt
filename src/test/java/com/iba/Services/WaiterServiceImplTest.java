@@ -1,8 +1,8 @@
-package com.iba.DAO;
+package com.iba.Services;
 
 
-import com.iba.DAO.dao.implementations.WaiterDaoImpl;
 import com.iba.Models.WaiterModel;
+import com.iba.Services.implementations.WaiterServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,10 +19,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class WaiterDaoImplTest {
+public class WaiterServiceImplTest {
 
     @Autowired
-    private WaiterDaoImpl WaiterDao;
+    private WaiterServiceImpl WaiterService;
 
     private WaiterModel WaiterActual;
     private WaiterModel WaiterExpected;
@@ -45,35 +45,35 @@ public class WaiterDaoImplTest {
     @Test
     public void testSave()
     {
-        String id = WaiterDao.save(WaiterActual);
-        WaiterExpected = WaiterDao.getById(id);
-        WaiterActual = WaiterDao.getById(id);
+        String id = WaiterService.save(WaiterActual);
+        WaiterExpected = WaiterService.getbyId(id);
+        WaiterActual = WaiterService.getbyId(id);
         Assert.assertEquals("WaiterSave() failed", WaiterActual, WaiterExpected);
     }
 
     @Test
     public void testGetAll()
     {
-        List<WaiterModel> allDocs = WaiterDao.getAll();
+        List<WaiterModel> allDocs = WaiterService.getAll();
         Assert.assertTrue("WaiterGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
     public void testGetById()
     {
-        List<WaiterModel> allDocs = WaiterDao.getAll();
+        List<WaiterModel> allDocs = WaiterService.getAll();
         WaiterActual = allDocs.get(0);
-        WaiterExpected = WaiterDao.getById(WaiterActual.get_id());
+        WaiterExpected = WaiterService.getbyId(WaiterActual.get_id());
         Assert.assertEquals("WaiterGetById() failed", WaiterActual, WaiterExpected);
     }
 
     @Test
     public void testUpdate()
     {
-        WaiterActual = WaiterDao.getById("test_update");
-        WaiterActual.setWaiter_name("77772");
-        WaiterDao.update(WaiterActual);
-        WaiterExpected = WaiterDao.getById("test_update");
+        WaiterActual = WaiterService.getbyId("test_update");
+        WaiterActual.setWaiter_name("waiterName");
+        WaiterService.update(WaiterActual);
+        WaiterExpected = WaiterService.getbyId("test_update");
 
         Assert.assertEquals("WaiterUpdate() failed", WaiterActual.getWaiter_name(), WaiterExpected.getWaiter_name());
     }
@@ -81,7 +81,7 @@ public class WaiterDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<WaiterModel> allDocs = WaiterDao.getAll();
+        List<WaiterModel> allDocs = WaiterService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (WaiterModel model: allDocs)
@@ -91,18 +91,18 @@ public class WaiterDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            WaiterActual = WaiterDao.getById("test_delete");
-            WaiterDao.delete(WaiterActual);
+            WaiterActual = WaiterService.getbyId("test_delete");
+            WaiterService.delete(WaiterActual);
         }
         else
         {
             WaiterActual.set_id("test_delete");
-            WaiterDao.save(WaiterActual);
+            WaiterService.save(WaiterActual);
         }
 
         Boolean deleted;
 
-        List<WaiterModel> allDocsAfterDelete = WaiterDao.getAll();
+        List<WaiterModel> allDocsAfterDelete = WaiterService.getAll();
 
         if (!allDocsAfterDelete.contains(WaiterActual)) deleted = true;
         else deleted = false;

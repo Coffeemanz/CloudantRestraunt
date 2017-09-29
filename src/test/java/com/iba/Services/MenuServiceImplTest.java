@@ -1,8 +1,7 @@
-package com.iba.DAO;
+package com.iba.Services;
 
-
-import com.iba.DAO.dao.implementations.MenuDaoImpl;
 import com.iba.Models.MenuModel;
+import com.iba.Services.implementations.MenuServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,11 +18,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class MenuDaoImplTest {
-
+public class MenuServiceImplTest {
 
     @Autowired
-    private MenuDaoImpl MenuDao;
+    private MenuServiceImpl MenuService;
 
     private MenuModel MenuActual;
     private MenuModel MenuExpected;
@@ -46,35 +44,35 @@ public class MenuDaoImplTest {
     @Test
     public void testSave()
     {
-        String id = MenuDao.save(MenuActual);
-        MenuExpected = MenuDao.getById(id);
-        MenuActual = MenuDao.getById(id);
+        String id = MenuService.save(MenuActual);
+        MenuExpected = MenuService.getbyId(id);
+        MenuActual = MenuService.getbyId(id);
         Assert.assertEquals("MenuSave() failed", MenuActual, MenuExpected);
     }
 
     @Test
     public void testGetAll()
     {
-        List<MenuModel> allDocs = MenuDao.getAll();
+        List<MenuModel> allDocs = MenuService.getAll();
         Assert.assertTrue("MenuGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
     public void testGetById()
     {
-        List<MenuModel> allDocs = MenuDao.getAll();
+        List<MenuModel> allDocs = MenuService.getAll();
         MenuActual = allDocs.get(0);
-        MenuExpected = MenuDao.getById(MenuActual.get_id());
+        MenuExpected = MenuService.getbyId(MenuActual.get_id());
         Assert.assertEquals("MenuGetById() failed", MenuActual, MenuExpected);
     }
 
     @Test
     public void testUpdate()
     {
-        MenuActual = MenuDao.getById("test_update");
+        MenuActual = MenuService.getbyId("test_update");
         MenuActual.setMenu_name("testing2");
-        MenuDao.update(MenuActual);
-        MenuExpected = MenuDao.getById("test_update");
+        MenuService.update(MenuActual);
+        MenuExpected = MenuService.getbyId("test_update");
 
         Assert.assertEquals("MenuUpdate() failed", MenuActual.getMenu_name(), MenuExpected.getMenu_name());
     }
@@ -82,7 +80,7 @@ public class MenuDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<MenuModel> allDocs = MenuDao.getAll();
+        List<MenuModel> allDocs = MenuService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (MenuModel model: allDocs)
@@ -92,24 +90,22 @@ public class MenuDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            MenuActual = MenuDao.getById("test_delete");
-            MenuDao.delete(MenuActual);
+            MenuActual = MenuService.getbyId("test_delete");
+            MenuService.delete(MenuActual);
         }
         else
         {
             MenuActual.set_id("test_delete");
-            MenuDao.save(MenuActual);
+            MenuService.save(MenuActual);
         }
 
         Boolean deleted;
 
-        List<MenuModel> allDocsAfterDelete = MenuDao.getAll();
+        List<MenuModel> allDocsAfterDelete = MenuService.getAll();
 
         if (!allDocsAfterDelete.contains(MenuActual)) deleted = true;
         else deleted = false;
 
         Assert.assertTrue("MenuDelete() failed", deleted);
     }
-
-
 }

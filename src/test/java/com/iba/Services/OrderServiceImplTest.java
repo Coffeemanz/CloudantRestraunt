@@ -1,8 +1,7 @@
-package com.iba.DAO;
+package com.iba.Services;
 
-
-import com.iba.DAO.dao.implementations.OrderDaoImpl;
 import com.iba.Models.OrderModel;
+import com.iba.Services.implementations.OrderServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,10 +18,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class OrderDaoImplTest {
+public class OrderServiceImplTest {
 
     @Autowired
-    private OrderDaoImpl OrderDao;
+    private OrderServiceImpl OrderService;
 
     private OrderModel OrderActual;
     private OrderModel OrderExpected;
@@ -45,35 +44,35 @@ public class OrderDaoImplTest {
     @Test
     public void testSave()
     {
-        String id = OrderDao.save(OrderActual);
-        OrderExpected = OrderDao.getById(id);
-        OrderActual = OrderDao.getById(id);
+        String id = OrderService.save(OrderActual);
+        OrderExpected = OrderService.getbyId(id);
+        OrderActual = OrderService.getbyId(id);
         Assert.assertEquals("OrderSave() failed", OrderActual, OrderExpected);
     }
 
     @Test
     public void testGetAll()
     {
-        List<OrderModel> allDocs = OrderDao.getAll();
+        List<OrderModel> allDocs = OrderService.getAll();
         Assert.assertTrue("OrderGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
     public void testGetById()
     {
-        List<OrderModel> allDocs = OrderDao.getAll();
+        List<OrderModel> allDocs = OrderService.getAll();
         OrderActual = allDocs.get(0);
-        OrderExpected = OrderDao.getById(OrderActual.get_id());
+        OrderExpected = OrderService.getbyId(OrderActual.get_id());
         Assert.assertEquals("OrderGetById() failed", OrderActual, OrderExpected);
     }
 
     @Test
     public void testUpdate()
     {
-        OrderActual = OrderDao.getById("test_update");
+        OrderActual = OrderService.getbyId("test_update");
         OrderActual.setClient_id("77772");
-        OrderDao.update(OrderActual);
-        OrderExpected = OrderDao.getById("test_update");
+        OrderService.update(OrderActual);
+        OrderExpected = OrderService.getbyId("test_update");
 
         Assert.assertEquals("OrderUpdate() failed", OrderActual.getClient_id(), OrderExpected.getClient_id());
     }
@@ -81,7 +80,7 @@ public class OrderDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<OrderModel> allDocs = OrderDao.getAll();
+        List<OrderModel> allDocs = OrderService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (OrderModel model: allDocs)
@@ -91,18 +90,18 @@ public class OrderDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            OrderActual = OrderDao.getById("test_delete");
-            OrderDao.delete(OrderActual);
+            OrderActual = OrderService.getbyId("test_delete");
+            OrderService.delete(OrderActual);
         }
         else
         {
             OrderActual.set_id("test_delete");
-            OrderDao.save(OrderActual);
+            OrderService.save(OrderActual);
         }
 
         Boolean deleted;
 
-        List<OrderModel> allDocsAfterDelete = OrderDao.getAll();
+        List<OrderModel> allDocsAfterDelete = OrderService.getAll();
 
         if (!allDocsAfterDelete.contains(OrderActual)) deleted = true;
         else deleted = false;

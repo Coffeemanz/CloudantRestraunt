@@ -1,8 +1,7 @@
-package com.iba.DAO;
+package com.iba.Services;
 
-
-import com.iba.DAO.dao.implementations.FoodDaoImpl;
 import com.iba.Models.FoodModel;
+import com.iba.Services.implementations.FoodServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,10 +18,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class FoodDaoImplTest {
+public class FoodServiceImplTest {
 
     @Autowired
-    private FoodDaoImpl foodDao;
+    private FoodServiceImpl foodService;
 
     private FoodModel foodActual;
     private FoodModel foodExpected;
@@ -41,39 +40,38 @@ public class FoodDaoImplTest {
         foodExpected = null;
     }
 
-
     @Test
-    public void testSave()
+    public void save()
     {
-        String id = foodDao.save(foodActual);
-        foodExpected = foodDao.getById(id);
-        foodActual = foodDao.getById(id);
+        String id = foodService.save(foodActual);
+        foodExpected = foodService.getbyId(id);
+        foodActual = foodService.getbyId(id);
         Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
     @Test
-    public void testGetAll()
+    public void getAll()
     {
-        List<FoodModel> allDocs = foodDao.getAll();
+        List<FoodModel> allDocs = foodService.getAll();
         Assert.assertTrue("foodGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
-    public void testGetById()
+    public void getById()
     {
-        List<FoodModel> allDocs = foodDao.getAll();
+        List<FoodModel> allDocs = foodService.getAll();
         foodActual = allDocs.get(0);
-        foodExpected = foodDao.getById(foodActual.get_id());
+        foodExpected = foodService.getbyId(foodActual.get_id());
         Assert.assertEquals("foodGetById() failed", foodActual, foodExpected);
     }
 
     @Test
-    public void testUpdate()
+    public void update()
     {
-        foodActual = foodDao.getById("test_update");
+        foodActual = foodService.getbyId("test_update");
         foodActual.setFoood_price(1234567.0);
-        foodDao.update(foodActual);
-        foodExpected = foodDao.getById("test_update");
+        foodService.update(foodActual);
+        foodExpected = foodService.getbyId("test_update");
 
         Assert.assertEquals("foodUpdate() failed", foodActual.getFoood_price(), foodExpected.getFoood_price());
     }
@@ -81,7 +79,7 @@ public class FoodDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<FoodModel> allDocs = foodDao.getAll();
+        List<FoodModel> allDocs = foodService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (FoodModel model: allDocs)
@@ -91,23 +89,22 @@ public class FoodDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            foodActual = foodDao.getById("test_delete");
-            foodDao.delete(foodActual);
+            foodActual = foodService.getbyId("test_delete");
+            foodService.delete(foodActual);
         }
         else
         {
             foodActual.set_id("test_delete");
-            foodDao.save(foodActual);
+            foodService.save(foodActual);
         }
 
         Boolean deleted;
 
-        List<FoodModel> allDocsAfterDelete = foodDao.getAll();
+        List<FoodModel> allDocsAfterDelete = foodService.getAll();
 
         if (!allDocsAfterDelete.contains(foodActual)) deleted = true;
         else deleted = false;
 
         Assert.assertTrue("foodDelete() failed", deleted);
     }
-
 }

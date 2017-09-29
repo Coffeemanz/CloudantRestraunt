@@ -1,8 +1,7 @@
-package com.iba.DAO;
+package com.iba.Services;
 
-
-import com.iba.DAO.dao.implementations.ClientDaoImpl;
 import com.iba.Models.ClientModel;
+import com.iba.Services.implementations.ClientServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,10 +18,10 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
-public class ClientDaoImplTest {
+public class ClientServiceImplTest {
 
     @Autowired
-    private ClientDaoImpl clientDao;
+    private ClientServiceImpl clientService;
 
     private ClientModel clientActual;
     private ClientModel clientExpected;
@@ -41,39 +40,38 @@ public class ClientDaoImplTest {
         clientExpected = null;
     }
 
-
     @Test
-    public void testSave()
+    public void save()
     {
-        String id = clientDao.save(clientActual);
-        clientExpected = clientDao.getById(id);
-        clientActual = clientDao.getById(id);
+        String id = clientService.save(clientActual);
+        clientExpected = clientService.getbyId(id);
+        clientActual = clientService.getbyId(id);
         Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
     @Test
-    public void testGetAll()
+    public void getAll()
     {
-        List<ClientModel> allDocs = clientDao.getAll();
+        List<ClientModel> allDocs = clientService.getAll();
         Assert.assertTrue("clientGetAll() failed", allDocs.size() >= 2);
     }
 
     @Test
-    public void testGetById()
+    public void getById()
     {
-        List<ClientModel> allDocs = clientDao.getAll();
+        List<ClientModel> allDocs = clientService.getAll();
         clientActual = allDocs.get(0);
-        clientExpected = clientDao.getById(clientActual.get_id());
+        clientExpected = clientService.getbyId(clientActual.get_id());
         Assert.assertEquals("clientGetById() failed", clientActual, clientExpected);
     }
 
     @Test
-    public void testUpdate()
+    public void update()
     {
-        clientActual = clientDao.getById("test_update");
+        clientActual = clientService.getbyId("test_update");
         clientActual.setClient_cash(1234567.0);
-        clientDao.update(clientActual);
-        clientExpected = clientDao.getById("test_update");
+        clientService.update(clientActual);
+        clientExpected = clientService.getbyId("test_update");
 
         Assert.assertEquals("clientUpdate() failed", clientActual.getClient_cash(), clientExpected.getClient_cash());
     }
@@ -81,7 +79,7 @@ public class ClientDaoImplTest {
     @Test
     public void testDelete()
     {
-        List<ClientModel> allDocs = clientDao.getAll();
+        List<ClientModel> allDocs = clientService.getAll();
         List<String> idS = new ArrayList<>();
 
         for (ClientModel model: allDocs)
@@ -91,18 +89,18 @@ public class ClientDaoImplTest {
 
         if (idS.contains("test_delete"))
         {
-            clientActual = clientDao.getById("test_delete");
-            clientDao.delete(clientActual);
+            clientActual = clientService.getbyId("test_delete");
+            clientService.delete(clientActual);
         }
         else
         {
             clientActual.set_id("test_delete");
-            clientDao.save(clientActual);
+            clientService.save(clientActual);
         }
 
         Boolean deleted;
 
-        List<ClientModel> allDocsAfterDelete = clientDao.getAll();
+        List<ClientModel> allDocsAfterDelete = clientService.getAll();
 
         if (!allDocsAfterDelete.contains(clientActual)) deleted = true;
         else deleted = false;
