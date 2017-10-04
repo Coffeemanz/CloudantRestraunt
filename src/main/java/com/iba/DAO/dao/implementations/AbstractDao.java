@@ -6,6 +6,8 @@ import com.cloudant.client.api.views.AllDocsRequestBuilder;
 import com.iba.DAO.dao.interfaces.BaseDao;
 import com.iba.DAO.dao.service_classes.CloudantConfiguration;
 import com.iba.Models.BaseModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
 
+    private static final Logger logger = LoggerFactory.getLogger(AbstractDao.class);
 
     @Autowired
     protected CloudantConfiguration client;
@@ -33,7 +36,9 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     @Override
     public String save(T model)
     {
-        return (database.save(model).getId());
+        String id  = database.save(model).getId();
+        logger.debug("The model: "  + id + " successfully saved");
+        return id;
     }
 
     @Override
@@ -42,6 +47,7 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
         List<T>  allDocs = null;
         try {
             allDocs = database.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(persistentClass);
+            logger.debug("All models successfully found!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,20 +58,26 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     @Override
     public T getById(String id)
     {
-        return database.find(persistentClass, id);
+        T model = database.find(persistentClass, id);
+        logger.debug("The model: "  + id + " successfully found");
+        return model;
     }
 
 
     @Override
     public Boolean update(T model)
     {
-        return (database.update(model).getError() == null);
+        Boolean updated = database.update(model).getError() == null;
+        logger.debug("The model: "  + model.get_id() + " successfully updated");
+        return updated;
     }
 
     @Override
     public Boolean delete(String id)
     {
         T model = getById(id);
-        return (database.remove(model).getError() == null);
+        Boolean deleted = database.remove(model).getError() == null;
+        logger.debug("The model: "  + id + " successfully deleted");
+        return deleted;
     }
 }

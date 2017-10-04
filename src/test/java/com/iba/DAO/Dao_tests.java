@@ -6,6 +6,7 @@ import com.iba.DAO.dao.implementations.BillDaoImpl;
 import com.iba.Models.BillModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,13 +16,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration("/test-context.xml")
 @WebAppConfiguration
 public class Dao_tests {
 
+    private static final Logger logger = LoggerFactory.getLogger(Dao_tests.class);
     @Autowired
     private CloudantClient client;
 
@@ -73,8 +74,8 @@ public class Dao_tests {
 
         BillModel billModel = new BillModel();
         String id = billDao.save(billModel);
-        System.out.println("----------");
-        System.out.println(id);
-        System.out.println("----------");
+
+        logger.info("testing logger");
+
     }
 }
