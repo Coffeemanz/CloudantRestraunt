@@ -1,7 +1,9 @@
 package com.iba.Services.implementations;
 
 import com.iba.DAO.dao.implementations.OrderDaoImpl;
+import com.iba.DAO.exceptions.DaoException;
 import com.iba.Models.OrderModel;
+import com.iba.Services.exceptions.ServiceException;
 import com.iba.Services.interfaces.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,34 +22,62 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String save(OrderModel model) {
-        String id = orderDao.save(model);
-        logger.debug("Order " + id + " successfully saved!");
+        String id = null;
+        try {
+            id = orderDao.save(model);
+            logger.debug("Order " + id + " successfully saved!");
+        } catch (DaoException e) {
+            logger.error("Error was thrown in OrderService method save: " + e);
+            throw new ServiceException(e);
+        }
         return id;
     }
 
     @Override
     public void delete(String id) {
-        orderDao.delete(id);
-        logger.debug("Order " + id + " successfully deleted!");
+        try {
+            orderDao.delete(id);
+            logger.debug("Order " + id + " successfully deleted!");
+        } catch (DaoException e) {
+            logger.error("Error was thrown in OrderService method delete: " + e);
+            throw new ServiceException(e);
+        }
     }
 
     @Override
     public void update(OrderModel model) {
-        orderDao.update(model);
-        logger.debug("Order " + model.get_id() + " successfully updated");
+        try {
+            orderDao.update(model);
+            logger.debug("Order " + model.get_id() + " successfully updated");
+        } catch (DaoException e) {
+            logger.error("Error was thrown in OrderService method update: " + e);
+            throw new ServiceException(e);
+        }
     }
 
     @Override
     public List<OrderModel> getAll() {
-        List<OrderModel> allModels = orderDao.getAll();
-        logger.debug("All order successfully found!");
+        List<OrderModel> allModels = null;
+        try {
+            allModels = orderDao.getAll();
+            logger.debug("All order successfully found!");
+        } catch (DaoException e) {
+            logger.error("Error was thrown in OrderService method getAll: " + e);
+            throw new ServiceException(e);
+        }
         return allModels;
     }
 
     @Override
     public OrderModel getbyId(String id) {
-        OrderModel orderModel = orderDao.getById(id);
-        logger.debug("Order " + id + " successfully found");
+        OrderModel orderModel = null;
+        try {
+            orderModel = orderDao.getById(id);
+            logger.debug("Order " + id + " successfully found");
+        } catch (DaoException e) {
+            logger.error("Error was thrown in OrderService method getById: " + e);
+            throw new ServiceException(e);
+        }
         return orderModel;
     }
 }
