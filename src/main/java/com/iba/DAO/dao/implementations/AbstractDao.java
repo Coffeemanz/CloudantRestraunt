@@ -3,8 +3,10 @@ package com.iba.DAO.dao.implementations;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.AllDocsRequestBuilder;
+import com.cloudant.client.org.lightcouch.CouchDbException;
 import com.iba.DAO.dao.interfaces.BaseDao;
 import com.iba.DAO.dao.service_classes.CloudantConfiguration;
+import com.iba.DAO.exceptions.DaoException;
 import com.iba.Models.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +38,14 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     @Override
     public String save(T model)
     {
-        String id  = database.save(model).getId();
-        logger.debug("The model: "  + id + " successfully saved");
+        String id  = null;
+        try {
+            id = database.save(model).getId();
+            logger.debug("The model: "  + id + " successfully saved");
+        } catch (CouchDbException e) {
+            logger.error("Error was thrown in AbstractDao method save: " + e);
+            throw new DaoException(e);
+        }
         return id;
     }
 
@@ -49,7 +57,8 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
             allDocs = database.getAllDocsRequestBuilder().includeDocs(true).build().getResponse().getDocsAs(persistentClass);
             logger.debug("All models successfully found!");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error was thrown in AbstractDao method update: " + e);
+            throw new DaoException(e);
         }
         return allDocs;
 
@@ -58,8 +67,14 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     @Override
     public T getById(String id)
     {
-        T model = database.find(persistentClass, id);
-        logger.debug("The model: "  + id + " successfully found");
+        T model = null;
+        try {
+            model = database.find(persistentClass, id);
+            logger.debug("The model: "  + id + " successfully found");
+        } catch (CouchDbException e) {
+            logger.error("Error was thrown in AbstractDao method getById: " + e);
+            throw new DaoException(e);
+        }
         return model;
     }
 
@@ -67,17 +82,29 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     @Override
     public Boolean update(T model)
     {
-        Boolean updated = database.update(model).getError() == null;
-        logger.debug("The model: "  + model.get_id() + " successfully updated");
+        Boolean updated = null;
+        try {
+            updated = database.update(model).getError() == null;
+            logger.debug("The model: "  + model.get_id() + " successfully updated");
+        } catch (CouchDbException e) {
+            logger.error("Error was thrown in AbstractDao method update: " + e);
+            throw new DaoException(e);
+        }
         return updated;
     }
 
     @Override
     public Boolean delete(String id)
     {
-        T model = getById(id);
-        Boolean deleted = database.remove(model).getError() == null;
-        logger.debug("The model: "  + id + " successfully deleted");
+        Boolean deleted = null;
+        try {
+            T model = getById(id);
+            deleted = database.remove(model).getError() == null;
+            logger.debug("The model: "  + id + " successfully deleted");
+        } catch (CouchDbException e) {
+            logger.error("Error was thrown in AbstractDao method delete: " + e);
+            throw new DaoException(e);
+        }
         return deleted;
     }
 }
