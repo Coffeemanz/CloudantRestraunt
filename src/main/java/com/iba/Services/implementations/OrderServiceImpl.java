@@ -20,8 +20,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(OrderModel model) {
-        orderDao.delete(model);
+    public void delete(String id) {
+        orderDao.delete(id);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void delete(FoodModel model) {
-        foodDao.delete(model);
+    public void delete(String id) {
+        foodDao.delete(id);
     }
 
     @Override

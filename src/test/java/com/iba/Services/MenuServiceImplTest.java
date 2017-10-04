@@ -1,5 +1,6 @@
 package com.iba.Services;
 
+
 import com.iba.Models.MenuModel;
 import com.iba.Services.implementations.MenuServiceImpl;
 import org.junit.After;
@@ -91,7 +92,7 @@ public class MenuServiceImplTest {
         if (idS.contains("test_delete"))
         {
             MenuActual = MenuService.getbyId("test_delete");
-            MenuService.delete(MenuActual);
+            MenuService.delete("test_delete");
         }
         else
         {

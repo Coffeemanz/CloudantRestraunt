@@ -91,7 +91,7 @@ public class OrderServiceImplTest {
         if (idS.contains("test_delete"))
         {
             OrderActual = OrderService.getbyId("test_delete");
-            OrderService.delete(OrderActual);
+            OrderService.delete("test_delete");
         }
         else
         {

@@ -92,7 +92,7 @@ public class WaiterServiceImplTest {
         if (idS.contains("test_delete"))
         {
             WaiterActual = WaiterService.getbyId("test_delete");
-            WaiterService.delete(WaiterActual);
+            WaiterService.delete("test_delete");
         }
         else
         {

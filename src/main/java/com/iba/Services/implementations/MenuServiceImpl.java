@@ -20,8 +20,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void delete(MenuModel model) {
-        menuDao.delete(model);
+    public void delete(String id) {
+        menuDao.delete(id);
     }
 
     @Override

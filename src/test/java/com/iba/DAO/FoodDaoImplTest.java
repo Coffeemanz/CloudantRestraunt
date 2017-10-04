@@ -92,7 +92,7 @@ public class FoodDaoImplTest {
         if (idS.contains("test_delete"))
         {
             foodActual = foodDao.getById("test_delete");
-            foodDao.delete(foodActual);
+            foodDao.delete("test_delete");
         }
         else
         {

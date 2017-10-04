@@ -20,8 +20,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(ClientModel model) {
-        clientDao.delete(model);
+    public void delete(String id) {
+        clientDao.delete(id);
     }
 
     @Override

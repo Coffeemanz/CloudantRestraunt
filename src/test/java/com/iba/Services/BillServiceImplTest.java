@@ -92,7 +92,7 @@ public class BillServiceImplTest {
         if (idS.contains("test_delete"))
         {
             billActual = billService.getbyId("test_delete");
-            billService.delete(billActual);
+            billService.delete("test_delete");
         }
         else
         {

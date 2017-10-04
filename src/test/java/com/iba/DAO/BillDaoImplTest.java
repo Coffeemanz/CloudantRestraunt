@@ -93,7 +93,7 @@ public class BillDaoImplTest {
         if (idS.contains("test_delete"))
         {
             billActual = billDao.getById("test_delete");
-            billDao.delete(billActual);
+            billDao.delete("test_delete");
         }
         else
         {

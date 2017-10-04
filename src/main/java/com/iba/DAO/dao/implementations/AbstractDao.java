@@ -63,8 +63,9 @@ public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
     }
 
     @Override
-    public Boolean delete(T model)
+    public Boolean delete(String id)
     {
+        T model = getById(id);
         return (database.remove(model).getError() == null);
     }
 }

@@ -90,7 +90,7 @@ public class FoodServiceImplTest {
         if (idS.contains("test_delete"))
         {
             foodActual = foodService.getbyId("test_delete");
-            foodService.delete(foodActual);
+            foodService.delete("test_delete");
         }
         else
         {

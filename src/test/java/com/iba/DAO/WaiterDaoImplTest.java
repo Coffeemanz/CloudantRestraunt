@@ -92,7 +92,7 @@ public class WaiterDaoImplTest {
         if (idS.contains("test_delete"))
         {
             WaiterActual = WaiterDao.getById("test_delete");
-            WaiterDao.delete(WaiterActual);
+            WaiterDao.delete("test_delete");
         }
         else
         {

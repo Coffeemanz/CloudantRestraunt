@@ -93,7 +93,7 @@ public class MenuDaoImplTest {
         if (idS.contains("test_delete"))
         {
             MenuActual = MenuDao.getById("test_delete");
-            MenuDao.delete(MenuActual);
+            MenuDao.delete("test_delete");
         }
         else
         {

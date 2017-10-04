@@ -20,8 +20,8 @@ public class WaiterServiceImpl implements WaiterService {
     }
 
     @Override
-    public void delete(WaiterModel model) {
-        waiterDao.delete(model);
+    public void delete(String id) {
+        waiterDao.delete(id);
     }
 
     @Override

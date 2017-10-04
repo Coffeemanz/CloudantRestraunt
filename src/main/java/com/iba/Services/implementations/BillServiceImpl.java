@@ -21,8 +21,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public void delete(BillModel model) {
-        billDao.delete(model);
+    public void delete(String id) {
+        billDao.delete(id);
     }
 
     @Override

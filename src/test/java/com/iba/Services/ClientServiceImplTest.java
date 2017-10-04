@@ -90,7 +90,7 @@ public class ClientServiceImplTest {
         if (idS.contains("test_delete"))
         {
             clientActual = clientService.getbyId("test_delete");
-            clientService.delete(clientActual);
+            clientService.delete("test_delete");
         }
         else
         {

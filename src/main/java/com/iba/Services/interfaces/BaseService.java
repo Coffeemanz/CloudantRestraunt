@@ -8,7 +8,7 @@ public interface BaseService<T extends BaseModel> {
 
     String save(T model);
 
-    void delete(T model);
+    void delete(String id);
 
     void update(T model);
 

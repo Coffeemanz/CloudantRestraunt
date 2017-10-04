@@ -92,7 +92,7 @@ public class OrderDaoImplTest {
         if (idS.contains("test_delete"))
         {
             OrderActual = OrderDao.getById("test_delete");
-            OrderDao.delete(OrderActual);
+            OrderDao.delete("test_delete");
         }
         else
         {

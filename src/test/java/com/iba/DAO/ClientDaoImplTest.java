@@ -92,7 +92,7 @@ public class ClientDaoImplTest {
         if (idS.contains("test_delete"))
         {
             clientActual = clientDao.getById("test_delete");
-            clientDao.delete(clientActual);
+            clientDao.delete("test_delete");
         }
         else
         {
