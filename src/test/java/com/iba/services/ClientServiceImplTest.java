@@ -1,7 +1,11 @@
 package com.iba.services;
 
 import com.iba.models.ClientModel;
+import com.iba.models.FoodModel;
+import com.iba.services.exceptions.NotEnoughMoneyException;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.ClientServiceImpl;
+import com.iba.services.implementations.FoodServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,6 +27,9 @@ public class ClientServiceImplTest {
     @Autowired
     private ClientServiceImpl clientService;
 
+    @Autowired
+    private FoodServiceImpl foodService;
+
     private ClientModel clientActual;
     private ClientModel clientExpected;
 
@@ -40,7 +47,7 @@ public class ClientServiceImplTest {
         clientExpected = null;
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void save()
     {
         String id = clientService.save(clientActual);
@@ -49,14 +56,14 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getAll()
     {
         List<ClientModel> allDocs = clientService.getAll();
         Assert.assertTrue("clientGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getById()
     {
         List<ClientModel> allDocs = clientService.getAll();
@@ -65,7 +72,7 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientGetById() failed", clientActual, clientExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void update()
     {
         clientActual = clientService.getbyId("test_update");
@@ -76,7 +83,7 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientUpdate() failed", clientActual.getClient_cash(), clientExpected.getClient_cash());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<ClientModel> allDocs = clientService.getAll();
@@ -106,5 +113,17 @@ public class ClientServiceImplTest {
         else deleted = false;
 
         Assert.assertTrue("clientDelete() failed", deleted);
+    }
+
+    @Test(expected = NotEnoughMoneyException.class)
+    public void getFood()
+    {
+        ClientModel clientModel = clientService.getbyId("test_service");
+        FoodModel foodModel = foodService.getbyId("banana");
+
+
+        String orderId = clientService.getFood(clientModel.get_id(), foodModel.get_id());
+
+        Assert.assertNotNull("Should return order id", orderId);
     }
 }

@@ -38,15 +38,15 @@ public class Dao_tests {
     @Test
     public void test(){
 
-        ClientModel clientModel = clientService.getbyId("test_service");
-        FoodModel foodModel = foodService.getbyId("banana");
-
-
-        String orderId = clientService.getFood(clientModel.get_id(), foodModel.get_id());
-
-        System.out.println("----------------------------");
-        System.out.println(orderId);
-        System.out.println("----------------------------");
+//        ClientModel clientModel = clientService.getbyId("test_service");
+//        FoodModel foodModel = foodService.getbyId("banana");
+//
+//
+//        String orderId = clientService.getFood(clientModel.get_id(), foodModel.get_id());
+//
+//        System.out.println("----------------------------");
+//        System.out.println(orderId);
+//        System.out.println("----------------------------");
 
     }
 }

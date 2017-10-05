@@ -2,6 +2,7 @@ package com.iba.dao;
 
 
 import com.iba.dao.dao.implementations.ClientDaoImpl;
+import com.iba.dao.exceptions.DaoException;
 import com.iba.models.ClientModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class ClientDaoImplTest {
     }
 
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testSave()
     {
         String id = clientDao.save(clientActual);
@@ -51,14 +52,14 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetAll()
     {
         List<ClientModel> allDocs = clientDao.getAll();
         Assert.assertTrue("clientGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetById()
     {
         List<ClientModel> allDocs = clientDao.getAll();
@@ -67,7 +68,7 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientGetById() failed", clientActual, clientExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testUpdate()
     {
         clientActual = clientDao.getById("test_update");
@@ -78,7 +79,7 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientUpdate() failed", clientActual.getClient_cash(), clientExpected.getClient_cash());
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testDelete()
     {
         List<ClientModel> allDocs = clientDao.getAll();

@@ -1,6 +1,7 @@
 package com.iba.services;
 
 import com.iba.models.OrderModel;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.OrderServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
@@ -41,7 +42,7 @@ public class OrderServiceImplTest {
     }
 
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testSave()
     {
         String id = OrderService.save(OrderActual);
@@ -50,14 +51,14 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderSave() failed", OrderActual, OrderExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetAll()
     {
         List<OrderModel> allDocs = OrderService.getAll();
         Assert.assertTrue("OrderGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetById()
     {
         List<OrderModel> allDocs = OrderService.getAll();
@@ -66,7 +67,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderGetById() failed", OrderActual, OrderExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testUpdate()
     {
         OrderActual = OrderService.getbyId("test_update");
@@ -77,7 +78,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderUpdate() failed", OrderActual.getClient_id(), OrderExpected.getClient_id());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<OrderModel> allDocs = OrderService.getAll();

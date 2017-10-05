@@ -2,6 +2,7 @@ package com.iba.dao;
 
 
 import com.iba.dao.dao.implementations.WaiterDaoImpl;
+import com.iba.dao.exceptions.DaoException;
 import com.iba.models.WaiterModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class WaiterDaoImplTest {
     }
 
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testSave()
     {
         String id = WaiterDao.save(WaiterActual);
@@ -51,14 +52,14 @@ public class WaiterDaoImplTest {
         Assert.assertEquals("WaiterSave() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetAll()
     {
         List<WaiterModel> allDocs = WaiterDao.getAll();
         Assert.assertTrue("WaiterGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetById()
     {
         List<WaiterModel> allDocs = WaiterDao.getAll();
@@ -67,7 +68,7 @@ public class WaiterDaoImplTest {
         Assert.assertEquals("WaiterGetById() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testUpdate()
     {
         WaiterActual = WaiterDao.getById("test_update");
@@ -78,7 +79,7 @@ public class WaiterDaoImplTest {
         Assert.assertEquals("WaiterUpdate() failed", WaiterActual.getWaiter_name(), WaiterExpected.getWaiter_name());
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testDelete()
     {
         List<WaiterModel> allDocs = WaiterDao.getAll();

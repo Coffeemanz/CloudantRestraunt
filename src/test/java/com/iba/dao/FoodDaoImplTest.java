@@ -2,6 +2,7 @@ package com.iba.dao;
 
 
 import com.iba.dao.dao.implementations.FoodDaoImpl;
+import com.iba.dao.exceptions.DaoException;
 import com.iba.models.FoodModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class FoodDaoImplTest {
     }
 
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testSave()
     {
         String id = foodDao.save(foodActual);
@@ -51,14 +52,14 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetAll()
     {
         List<FoodModel> allDocs = foodDao.getAll();
         Assert.assertTrue("foodGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetById()
     {
         List<FoodModel> allDocs = foodDao.getAll();
@@ -67,7 +68,7 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodGetById() failed", foodActual, foodExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testUpdate()
     {
         foodActual = foodDao.getById("test_update");
@@ -78,7 +79,7 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodUpdate() failed", foodActual.getFoood_price(), foodExpected.getFoood_price());
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testDelete()
     {
         List<FoodModel> allDocs = foodDao.getAll();

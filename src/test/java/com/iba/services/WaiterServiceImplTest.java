@@ -2,6 +2,7 @@ package com.iba.services;
 
 
 import com.iba.models.WaiterModel;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.WaiterServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class WaiterServiceImplTest {
     }
 
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testSave()
     {
         String id = WaiterService.save(WaiterActual);
@@ -51,14 +52,14 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterSave() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetAll()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();
         Assert.assertTrue("WaiterGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetById()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();
@@ -67,7 +68,7 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterGetById() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testUpdate()
     {
         WaiterActual = WaiterService.getbyId("test_update");
@@ -78,7 +79,7 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterUpdate() failed", WaiterActual.getWaiter_name(), WaiterExpected.getWaiter_name());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();

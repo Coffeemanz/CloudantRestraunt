@@ -1,6 +1,7 @@
 package com.iba.services;
 
 import com.iba.models.FoodModel;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.FoodServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
@@ -40,7 +41,7 @@ public class FoodServiceImplTest {
         foodExpected = null;
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void save()
     {
         String id = foodService.save(foodActual);
@@ -49,14 +50,14 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getAll()
     {
         List<FoodModel> allDocs = foodService.getAll();
         Assert.assertTrue("foodGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getById()
     {
         List<FoodModel> allDocs = foodService.getAll();
@@ -65,7 +66,7 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodGetById() failed", foodActual, foodExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void update()
     {
         foodActual = foodService.getbyId("test_update");
@@ -76,7 +77,7 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodUpdate() failed", foodActual.getFoood_price(), foodExpected.getFoood_price());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<FoodModel> allDocs = foodService.getAll();

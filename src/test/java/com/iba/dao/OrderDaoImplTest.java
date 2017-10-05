@@ -2,6 +2,7 @@ package com.iba.dao;
 
 
 import com.iba.dao.dao.implementations.OrderDaoImpl;
+import com.iba.dao.exceptions.DaoException;
 import com.iba.models.OrderModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class OrderDaoImplTest {
     }
 
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testSave()
     {
         String id = OrderDao.save(OrderActual);
@@ -51,14 +52,14 @@ public class OrderDaoImplTest {
         Assert.assertEquals("OrderSave() failed", OrderActual, OrderExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetAll()
     {
         List<OrderModel> allDocs = OrderDao.getAll();
         Assert.assertTrue("OrderGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetById()
     {
         List<OrderModel> allDocs = OrderDao.getAll();
@@ -67,7 +68,7 @@ public class OrderDaoImplTest {
         Assert.assertEquals("OrderGetById() failed", OrderActual, OrderExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testUpdate()
     {
         OrderActual = OrderDao.getById("test_update");
@@ -78,7 +79,7 @@ public class OrderDaoImplTest {
         Assert.assertEquals("OrderUpdate() failed", OrderActual.getClient_id(), OrderExpected.getClient_id());
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testDelete()
     {
         List<OrderModel> allDocs = OrderDao.getAll();

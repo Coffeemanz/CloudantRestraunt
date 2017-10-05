@@ -2,6 +2,7 @@ package com.iba.dao;
 
 
 import com.iba.dao.dao.implementations.BillDaoImpl;
+import com.iba.dao.exceptions.DaoException;
 import com.iba.models.BillModel;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class BillDaoImplTest {
     }
 
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testSave()
     {
         String id = billDao.save(billActual);
@@ -51,14 +52,14 @@ public class BillDaoImplTest {
         Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetAll()
     {
         List<BillModel> allDocs = billDao.getAll();
         Assert.assertTrue("billGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testGetById()
     {
         List<BillModel> allDocs = billDao.getAll();
@@ -67,7 +68,7 @@ public class BillDaoImplTest {
         Assert.assertEquals("billGetById() failed", billActual, billExpected);
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testUpdate()
     {
         billActual = billDao.getById("test_update");
@@ -78,7 +79,7 @@ public class BillDaoImplTest {
         Assert.assertEquals("billUpdate() failed", billActual.getTotal_price(), billExpected.getTotal_price());
     }
 
-    @Test
+    @Test(expected = DaoException.class)
     public void testDelete()
     {
         List<BillModel> allDocs = billDao.getAll();

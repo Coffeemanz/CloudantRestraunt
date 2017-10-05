@@ -2,6 +2,7 @@ package com.iba.services;
 
 
 import com.iba.models.BillModel;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.BillServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
@@ -41,7 +42,7 @@ public class BillServiceImplTest {
         billExpected = null;
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void save()
     {
         String id = billService.save(billActual);
@@ -50,14 +51,14 @@ public class BillServiceImplTest {
         Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getAll()
     {
         List<BillModel> allDocs = billService.getAll();
         Assert.assertTrue("billGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void getById()
     {
         List<BillModel> allDocs = billService.getAll();
@@ -66,7 +67,7 @@ public class BillServiceImplTest {
         Assert.assertEquals("billGetById() failed", billActual, billExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void update()
     {
         billActual = billService.getbyId("test_update");
@@ -77,7 +78,7 @@ public class BillServiceImplTest {
         Assert.assertEquals("billUpdate() failed", billActual.getTotal_price(), billExpected.getTotal_price());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<BillModel> allDocs = billService.getAll();

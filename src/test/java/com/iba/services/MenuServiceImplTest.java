@@ -2,6 +2,7 @@ package com.iba.services;
 
 
 import com.iba.models.MenuModel;
+import com.iba.services.exceptions.ServiceException;
 import com.iba.services.implementations.MenuServiceImpl;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +43,7 @@ public class MenuServiceImplTest {
     }
 
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testSave()
     {
         String id = MenuService.save(MenuActual);
@@ -51,14 +52,14 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuSave() failed", MenuActual, MenuExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetAll()
     {
         List<MenuModel> allDocs = MenuService.getAll();
         Assert.assertTrue("MenuGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testGetById()
     {
         List<MenuModel> allDocs = MenuService.getAll();
@@ -67,7 +68,7 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuGetById() failed", MenuActual, MenuExpected);
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testUpdate()
     {
         MenuActual = MenuService.getbyId("test_update");
@@ -78,7 +79,7 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuUpdate() failed", MenuActual.getMenu_name(), MenuExpected.getMenu_name());
     }
 
-    @Test
+    @Test(expected = ServiceException.class)
     public void testDelete()
     {
         List<MenuModel> allDocs = MenuService.getAll();
