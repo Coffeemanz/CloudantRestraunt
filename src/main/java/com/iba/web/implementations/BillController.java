@@ -12,28 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/bills")
 public class BillController extends CrudController<BillModel> {
 
-    private BillServiceImpl billService;
-
-    @Autowired
-    public BillController(BillServiceImpl billService)
+    public BillController(@Autowired BillServiceImpl billService)
     {
-        this.billService = billService;
+        super(billService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveBill(@RequestBody BillModel billModel)
-//    {
-//        return save(billModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateBill(@RequestBody BillModel billModel, @PathVariable String id)
-//    {
-//        return update(billModel);
-//    }
-
-    @Override
-    public BaseService<BillModel> getService() {
-        return billService;
-    }
 }

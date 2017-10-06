@@ -8,6 +8,7 @@ import com.iba.models.OrderModel;
 import com.iba.services.exceptions.NotEnoughMoneyException;
 import com.iba.services.exceptions.ServiceException;
 import com.iba.services.interfaces.ClientService;
+import com.iba.services.validation.ClientMoneyValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private OrderServiceImpl orderService;
+
+    @Autowired
+    private ClientMoneyValidation clientMoneyValidation;
 
     @Override
     public String save(ClientModel model) {
@@ -117,15 +121,8 @@ public class ClientServiceImpl implements ClientService {
 
         try
         {
-            if (clientModel.getClient_cash() < foodModel.getFoood_price())
-            {
-                throw new NotEnoughMoneyException("Not enough money!");
-            }
-            else
-            {
-                clientModel.setClient_cash(clientModel.getClient_cash() - foodModel.getFoood_price());
-                update(clientModel);
-            }
+            clientMoneyValidation.validateMoney(clientModel, foodModel);
+
             foodModelsIDS.add(foodModel.get_id());
             orderModel.setFood_idS(foodModelsIDS);
             orderModel.setClient_id(clientId);

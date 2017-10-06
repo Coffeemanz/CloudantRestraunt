@@ -43,7 +43,7 @@ public class ClientDaoImplTest {
     }
 
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testSave()
     {
         String id = clientDao.save(clientActual);
@@ -52,14 +52,14 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetAll()
     {
         List<ClientModel> allDocs = clientDao.getAll();
         Assert.assertTrue("clientGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetById()
     {
         List<ClientModel> allDocs = clientDao.getAll();
@@ -68,7 +68,7 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientGetById() failed", clientActual, clientExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testUpdate()
     {
         clientActual = clientDao.getById("test_update");
@@ -79,7 +79,7 @@ public class ClientDaoImplTest {
         Assert.assertEquals("clientUpdate() failed", clientActual.getClient_cash(), clientExpected.getClient_cash());
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testDelete()
     {
         List<ClientModel> allDocs = clientDao.getAll();

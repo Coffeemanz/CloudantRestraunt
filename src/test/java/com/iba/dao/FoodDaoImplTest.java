@@ -43,7 +43,7 @@ public class FoodDaoImplTest {
     }
 
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testSave()
     {
         String id = foodDao.save(foodActual);
@@ -52,14 +52,14 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetAll()
     {
         List<FoodModel> allDocs = foodDao.getAll();
         Assert.assertTrue("foodGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetById()
     {
         List<FoodModel> allDocs = foodDao.getAll();
@@ -68,7 +68,7 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodGetById() failed", foodActual, foodExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testUpdate()
     {
         foodActual = foodDao.getById("test_update");
@@ -79,7 +79,7 @@ public class FoodDaoImplTest {
         Assert.assertEquals("foodUpdate() failed", foodActual.getFoood_price(), foodExpected.getFoood_price());
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testDelete()
     {
         List<FoodModel> allDocs = foodDao.getAll();

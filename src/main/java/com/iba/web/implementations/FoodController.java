@@ -17,25 +17,9 @@ public class FoodController extends CrudController<FoodModel>{
     @Autowired
     public FoodController(FoodServiceImpl foodService)
     {
-        this.foodService = foodService;
+        super(foodService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveFood(@RequestBody FoodModel foodModel)
-//    {
-//        return save(foodModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateFood(@RequestBody FoodModel foodModel, @PathVariable String id)
-//    {
-//        return update(foodModel);
-//    }
-
-    @Override
-    public BaseService<FoodModel> getService() {
-        return foodService;
-    }
 
 
 }

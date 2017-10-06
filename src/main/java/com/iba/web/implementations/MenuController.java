@@ -16,23 +16,7 @@ public class MenuController extends CrudController<MenuModel> {
     @Autowired
     public MenuController(MenuServiceImpl menuService)
     {
-        this.menuService = menuService;
+        super(menuService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveMenu(@RequestBody MenuModel menuModel)
-//    {
-//        return save(menuModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateMenu(@RequestBody MenuModel menuModel, @PathVariable String id)
-//    {
-//        return update(menuModel);
-//    }
-
-    @Override
-    public BaseService<MenuModel> getService() {
-        return menuService;
-    }
 }

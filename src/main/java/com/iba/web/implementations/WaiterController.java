@@ -17,23 +17,7 @@ public class WaiterController extends CrudController<WaiterModel> {
     @Autowired
     public WaiterController(WaiterServiceImpl waiterService)
     {
-        this.waiterService = waiterService;
+        super(waiterService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveWaiter(@RequestBody WaiterModel waiterModel)
-//    {
-//        return save(waiterModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateWaiter(@RequestBody WaiterModel waiterModel, @PathVariable String id)
-//    {
-//        return update(waiterModel);
-//    }
-
-    @Override
-    public BaseService<WaiterModel> getService() {
-        return waiterService;
-    }
 }

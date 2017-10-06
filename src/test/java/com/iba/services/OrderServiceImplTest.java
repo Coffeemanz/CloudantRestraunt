@@ -42,7 +42,7 @@ public class OrderServiceImplTest {
     }
 
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testSave()
     {
         String id = OrderService.save(OrderActual);
@@ -51,14 +51,14 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderSave() failed", OrderActual, OrderExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetAll()
     {
         List<OrderModel> allDocs = OrderService.getAll();
         Assert.assertTrue("OrderGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetById()
     {
         List<OrderModel> allDocs = OrderService.getAll();
@@ -67,7 +67,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderGetById() failed", OrderActual, OrderExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testUpdate()
     {
         OrderActual = OrderService.getbyId("test_update");
@@ -78,7 +78,7 @@ public class OrderServiceImplTest {
         Assert.assertEquals("OrderUpdate() failed", OrderActual.getClient_id(), OrderExpected.getClient_id());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<OrderModel> allDocs = OrderService.getAll();

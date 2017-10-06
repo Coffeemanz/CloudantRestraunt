@@ -44,7 +44,7 @@ public class MenuDaoImplTest {
     }
 
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testSave()
     {
         String id = MenuDao.save(MenuActual);
@@ -53,14 +53,14 @@ public class MenuDaoImplTest {
         Assert.assertEquals("MenuSave() failed", MenuActual, MenuExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetAll()
     {
         List<MenuModel> allDocs = MenuDao.getAll();
         Assert.assertTrue("MenuGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetById()
     {
         List<MenuModel> allDocs = MenuDao.getAll();
@@ -69,7 +69,7 @@ public class MenuDaoImplTest {
         Assert.assertEquals("MenuGetById() failed", MenuActual, MenuExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testUpdate()
     {
         MenuActual = MenuDao.getById("test_update");
@@ -80,7 +80,7 @@ public class MenuDaoImplTest {
         Assert.assertEquals("MenuUpdate() failed", MenuActual.getMenu_name(), MenuExpected.getMenu_name());
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testDelete()
     {
         List<MenuModel> allDocs = MenuDao.getAll();

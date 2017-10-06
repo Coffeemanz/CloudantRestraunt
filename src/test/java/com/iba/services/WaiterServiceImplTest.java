@@ -43,7 +43,7 @@ public class WaiterServiceImplTest {
     }
 
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testSave()
     {
         String id = WaiterService.save(WaiterActual);
@@ -52,14 +52,14 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterSave() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetAll()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();
         Assert.assertTrue("WaiterGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetById()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();
@@ -68,7 +68,7 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterGetById() failed", WaiterActual, WaiterExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testUpdate()
     {
         WaiterActual = WaiterService.getbyId("test_update");
@@ -79,7 +79,7 @@ public class WaiterServiceImplTest {
         Assert.assertEquals("WaiterUpdate() failed", WaiterActual.getWaiter_name(), WaiterExpected.getWaiter_name());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<WaiterModel> allDocs = WaiterService.getAll();

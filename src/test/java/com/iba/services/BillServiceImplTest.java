@@ -42,7 +42,7 @@ public class BillServiceImplTest {
         billExpected = null;
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void save()
     {
         String id = billService.save(billActual);
@@ -51,14 +51,14 @@ public class BillServiceImplTest {
         Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getAll()
     {
         List<BillModel> allDocs = billService.getAll();
         Assert.assertTrue("billGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getById()
     {
         List<BillModel> allDocs = billService.getAll();
@@ -67,7 +67,7 @@ public class BillServiceImplTest {
         Assert.assertEquals("billGetById() failed", billActual, billExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void update()
     {
         billActual = billService.getbyId("test_update");
@@ -78,7 +78,7 @@ public class BillServiceImplTest {
         Assert.assertEquals("billUpdate() failed", billActual.getTotal_price(), billExpected.getTotal_price());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<BillModel> allDocs = billService.getAll();

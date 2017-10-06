@@ -43,7 +43,7 @@ public class MenuServiceImplTest {
     }
 
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testSave()
     {
         String id = MenuService.save(MenuActual);
@@ -52,14 +52,14 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuSave() failed", MenuActual, MenuExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetAll()
     {
         List<MenuModel> allDocs = MenuService.getAll();
         Assert.assertTrue("MenuGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testGetById()
     {
         List<MenuModel> allDocs = MenuService.getAll();
@@ -68,7 +68,7 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuGetById() failed", MenuActual, MenuExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testUpdate()
     {
         MenuActual = MenuService.getbyId("test_update");
@@ -79,7 +79,7 @@ public class MenuServiceImplTest {
         Assert.assertEquals("MenuUpdate() failed", MenuActual.getMenu_name(), MenuExpected.getMenu_name());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<MenuModel> allDocs = MenuService.getAll();

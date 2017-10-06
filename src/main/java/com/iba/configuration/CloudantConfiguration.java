@@ -1,4 +1,4 @@
-package com.iba.dao.dao.service_classes;
+package com.iba.configuration;
 
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;

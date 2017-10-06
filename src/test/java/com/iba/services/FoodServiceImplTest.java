@@ -41,7 +41,7 @@ public class FoodServiceImplTest {
         foodExpected = null;
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void save()
     {
         String id = foodService.save(foodActual);
@@ -50,14 +50,14 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodSave() failed", foodActual, foodExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getAll()
     {
         List<FoodModel> allDocs = foodService.getAll();
         Assert.assertTrue("foodGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getById()
     {
         List<FoodModel> allDocs = foodService.getAll();
@@ -66,7 +66,7 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodGetById() failed", foodActual, foodExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void update()
     {
         foodActual = foodService.getbyId("test_update");
@@ -77,7 +77,7 @@ public class FoodServiceImplTest {
         Assert.assertEquals("foodUpdate() failed", foodActual.getFoood_price(), foodExpected.getFoood_price());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<FoodModel> allDocs = foodService.getAll();

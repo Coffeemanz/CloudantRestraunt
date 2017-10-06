@@ -43,7 +43,7 @@ public class BillDaoImplTest {
     }
 
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testSave()
     {
         String id = billDao.save(billActual);
@@ -52,14 +52,14 @@ public class BillDaoImplTest {
         Assert.assertEquals("billSave() failed", billActual, billExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetAll()
     {
         List<BillModel> allDocs = billDao.getAll();
         Assert.assertTrue("billGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testGetById()
     {
         List<BillModel> allDocs = billDao.getAll();
@@ -68,7 +68,7 @@ public class BillDaoImplTest {
         Assert.assertEquals("billGetById() failed", billActual, billExpected);
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testUpdate()
     {
         billActual = billDao.getById("test_update");
@@ -79,7 +79,7 @@ public class BillDaoImplTest {
         Assert.assertEquals("billUpdate() failed", billActual.getTotal_price(), billExpected.getTotal_price());
     }
 
-    @Test(expected = DaoException.class)
+    @Test
     public void testDelete()
     {
         List<BillModel> allDocs = billDao.getAll();

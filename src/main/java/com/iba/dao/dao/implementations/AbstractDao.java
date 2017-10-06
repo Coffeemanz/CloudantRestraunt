@@ -3,22 +3,21 @@ package com.iba.dao.dao.implementations;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.org.lightcouch.CouchDbException;
 import com.iba.dao.dao.interfaces.BaseDao;
-import com.iba.dao.dao.service_classes.CloudantConfiguration;
 import com.iba.dao.exceptions.DaoException;
 import com.iba.models.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
+
 
 public abstract class AbstractDao<T extends BaseModel> implements BaseDao<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractDao.class);
 
-    @Autowired
-    protected CloudantConfiguration client;
+//    @Autowired
+//    protected CloudantConfiguration client;
 
     private Class<T> persistentClass;
 

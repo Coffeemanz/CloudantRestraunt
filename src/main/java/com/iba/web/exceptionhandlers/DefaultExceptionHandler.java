@@ -1,6 +1,7 @@
 package com.iba.web.exceptionhandlers;
 
 
+import com.iba.services.exceptions.NotEnoughMoneyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,12 @@ public class DefaultExceptionHandler {
     public ResponseEntity<String> exceptionHandler(Exception e) throws Exception {
         logger.error(e.getMessage());
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = NotEnoughMoneyException.class)
+    public ResponseEntity<String> notEnoughMoneyHandler(Exception e) throws Exception
+    {
+        logger.error(e.getMessage());
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
     }
 }

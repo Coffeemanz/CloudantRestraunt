@@ -47,7 +47,7 @@ public class ClientServiceImplTest {
         clientExpected = null;
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void save()
     {
         String id = clientService.save(clientActual);
@@ -56,14 +56,14 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientSave() failed", clientActual, clientExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getAll()
     {
         List<ClientModel> allDocs = clientService.getAll();
         Assert.assertTrue("clientGetAll() failed", allDocs.size() >= 2);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void getById()
     {
         List<ClientModel> allDocs = clientService.getAll();
@@ -72,7 +72,7 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientGetById() failed", clientActual, clientExpected);
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void update()
     {
         clientActual = clientService.getbyId("test_update");
@@ -83,7 +83,7 @@ public class ClientServiceImplTest {
         Assert.assertEquals("clientUpdate() failed", clientActual.getClient_cash(), clientExpected.getClient_cash());
     }
 
-    @Test(expected = ServiceException.class)
+    @Test
     public void testDelete()
     {
         List<ClientModel> allDocs = clientService.getAll();
@@ -115,7 +115,7 @@ public class ClientServiceImplTest {
         Assert.assertTrue("clientDelete() failed", deleted);
     }
 
-    @Test(expected = NotEnoughMoneyException.class)
+    @Test
     public void getFood()
     {
         ClientModel clientModel = clientService.getbyId("test_service");
@@ -125,5 +125,18 @@ public class ClientServiceImplTest {
         String orderId = clientService.getFood(clientModel.get_id(), foodModel.get_id());
 
         Assert.assertNotNull("Should return order id", orderId);
+    }
+
+    @Test(expected = NotEnoughMoneyException.class)
+    public void exceptionGetFood()
+    {
+        ClientModel clientModel = clientService.getbyId("test_service");
+        FoodModel foodModel = foodService.getbyId("chicken");
+
+        clientModel.setClient_cash(3.0);
+
+        String orderId = clientService.getFood(clientModel.get_id(), foodModel.get_id());
+
+
     }
 }

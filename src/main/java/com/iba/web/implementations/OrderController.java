@@ -16,23 +16,7 @@ public class OrderController extends CrudController<OrderModel> {
     @Autowired
     public OrderController(OrderServiceImpl orderService)
     {
-        this.orderService = orderService;
+        super(orderService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveOrder(@RequestBody OrderModel orderModel)
-//    {
-//        return save(orderModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateOrder(@RequestBody OrderModel orderModel, @PathVariable String id)
-//    {
-//        return update(orderModel);
-//    }
-
-    @Override
-    public BaseService<OrderModel> getService() {
-        return orderService;
-    }
 }

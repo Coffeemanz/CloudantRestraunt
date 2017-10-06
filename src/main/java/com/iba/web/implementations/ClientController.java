@@ -16,23 +16,7 @@ public class ClientController extends CrudController<ClientModel>{
     @Autowired
     public ClientController(ClientServiceImpl clientService)
     {
-        this.clientService = clientService;
+        super(clientService);
     }
 
-//    @RequestMapping(value = "", method = RequestMethod.POST)
-//    public ResponseEntity<String> saveClient(@RequestBody ClientModel clientModel)
-//    {
-//        return save(clientModel);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity updateClient(@RequestBody ClientModel clientModel, @PathVariable String id)
-//    {
-//        return update(clientModel);
-//    }
-
-    @Override
-    public BaseService<ClientModel> getService() {
-        return clientService;
-    }
 }
