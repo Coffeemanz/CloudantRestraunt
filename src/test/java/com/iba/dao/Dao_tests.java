@@ -1,6 +1,8 @@
 package com.iba.dao;
 
-import com.iba.configuration.CloudantConfiguration;
+import com.cloudant.client.api.CloudantClient;
+import com.iba.configuration.cloudant.CloudantConfiguration;
+import com.iba.property.SwaggerInfoProperty;
 import com.iba.services.implementations.ClientServiceImpl;
 import com.iba.services.implementations.FoodServiceImpl;
 import com.iba.services.implementations.OrderServiceImpl;
@@ -9,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -31,6 +34,7 @@ public class Dao_tests {
 
     @Autowired
     OrderServiceImpl orderService;
+
     @Test
     public void test(){
 
@@ -44,7 +48,9 @@ public class Dao_tests {
 //        System.out.println(orderId);
 //        System.out.println("----------------------------");
 
-        System.out.println(client.createClient().getAllDbs());
+
+
+
 
     }
 }

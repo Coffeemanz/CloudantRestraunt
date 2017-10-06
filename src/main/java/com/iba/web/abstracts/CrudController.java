@@ -2,6 +2,7 @@ package com.iba.web.abstracts;
 
 import com.iba.models.BaseModel;
 import com.iba.services.interfaces.BaseService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public abstract class CrudController <T extends BaseModel> {
     }
 
 
+    @ApiOperation(value = "Save model to database", protocols = "https")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<String> save(@RequestBody T model)
     {
@@ -28,6 +30,7 @@ public abstract class CrudController <T extends BaseModel> {
         return new ResponseEntity<String>(id, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Update model", protocols = "https")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody T model, @PathVariable String id)
     {
@@ -35,6 +38,7 @@ public abstract class CrudController <T extends BaseModel> {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Delete model with certain ID", protocols = "https")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable String id)
     {
@@ -42,6 +46,7 @@ public abstract class CrudController <T extends BaseModel> {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get all models", protocols = "https")
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<T>> getAll()
     {
@@ -49,6 +54,7 @@ public abstract class CrudController <T extends BaseModel> {
         return new ResponseEntity<List<T>>(list, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get model with certain ID", protocols = "https")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<T> get(@PathVariable String id)
     {

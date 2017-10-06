@@ -5,6 +5,8 @@ import com.iba.models.ClientModel;
 import com.iba.models.FoodModel;
 import com.iba.services.implementations.ClientServiceImpl;
 import com.iba.services.implementations.FoodServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/client/{clientId}")
+@Api(tags = {"Curtain Client Service"}, description = "Curtain Client endpoints")
 public class UserController {
 
     private ClientServiceImpl clientService;
@@ -30,6 +33,7 @@ public class UserController {
         this.foodService = foodService;
     }
 
+    @ApiOperation(value = "Get client's profile", protocols = "https")
     @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
     public ResponseEntity<ClientModel> userProfile(@PathVariable String id)
     {
@@ -37,6 +41,7 @@ public class UserController {
         return new ResponseEntity<ClientModel>(clientModel, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Add food with certain id to the order", protocols = "https")
     @RequestMapping(value = "/food/{foodId}", method = RequestMethod.GET)
     public ResponseEntity<String> getFood(@PathVariable String clientId, @PathVariable String foodId)
     {
@@ -44,6 +49,7 @@ public class UserController {
         return new ResponseEntity<String>(orderId, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Get list of all food", protocols = "https")
     @RequestMapping(value = "/food/all", method = RequestMethod.GET)
     public ResponseEntity<List<FoodModel>> getAllFood()
     {
